@@ -108,3 +108,15 @@ def birthday_ranges(birthday, ranges):
     return birthday_list
 
 # print(birthday_ranges([1, 2, 3, 4, 5], [(1, 2), (1, 3), (1, 4), (1, 5), (4, 6)]))
+
+
+def sum_matrix(m):
+    # suma = 0
+    # for row in m:
+    #     for col in row:
+    #         suma += col
+    # return suma
+
+    return sum([col for row in m for col in row])
+
+print(sum_matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
