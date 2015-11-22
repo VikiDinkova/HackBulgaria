@@ -1,15 +1,14 @@
 def sum_of_digits(digits):
-	sum_ = 0
+    sum_ = 0
 
-	while digits != 0:
-		i = digits % 10
-		sum_ += i
-		digits = digits // 10
-		print(digits)
+    while digits != 0:
+        i = digits % 10
+        sum_ += i
+        digits = digits // 10
+        print(digits)
+    return sum_
 
-	return sum_
-
-#print(sum_of_digits(-4250))
+# print(sum_of_digits(-4250))
 
 
 def count_digit(n):
@@ -66,7 +65,8 @@ def fibonacci(number):
 
     return list_fib
 
-def fibonacci(n):
+
+def fibonacci_(n):
     result = []
     a = 1
     b = 1
@@ -77,7 +77,7 @@ def fibonacci(n):
         next_number = a + b
         a = b
         b = next_number
-        # a, b = b, a + b 
+        # a, b = b, a + b
         # bez mejdinna promenliva
 
     return result
@@ -93,7 +93,7 @@ def fibonacci_rec(number):
 
 
 def palindrome(obj):
-    if str(obj) ==  str(obj)[::-1]:
+    if str(obj) == str(obj)[::-1]:
         return True
     else:
         return False
@@ -102,32 +102,32 @@ def palindrome(obj):
 # print(palindrome("kapak"))
 # print(palindrome("baba"))
 
+
 def count_vowels(str_):
-	count = 0
-	vowels = 'aeiouyAEIOUY'
+    count = 0
+    vowels = 'aeiouyAEIOUY'
 
+    for i in str_:
+        if i in vowels:
+            count += 1
 
-	for i in str_:
-		if i in vowels:
-			count += 1
-			
-	return count
+    return count
 
 
 # print(count_vowels("Github is the second best thing that happend to programmers, after the keyboard!"))
 
 def count_consonants(str_):
-	count = 0
-	consonants = 'bcdfghjklmnpqrstvwxzBCDFGHJKLMNPQRSTVWZ'
+    count = 0
+    consonants = 'bcdfghjklmnpqrstvwxzBCDFGHJKLMNPQRSTVWZ'
 
+    for i in str_:
+        if i in consonants:
+            count += 1
 
-	for i in str_:
-		if i in consonants:
-			count += 1
-			
-	return count
+    return count
 
 # print(count_consonants("Theistareykjarbunga"))
+
 
 def char_histogram(string_):
     dict_ = {}
@@ -138,4 +138,3 @@ def char_histogram(string_):
     return(dict_)
 
 # print(char_histogram("AAAAaaa!!!"))
-
