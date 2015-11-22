@@ -127,15 +127,27 @@ def gas_stations(distance, tank_size, stations):
 
 
 def sum_of_numbers(st):
-    number_list = []
+    sum_ = 0
+    first_index = 0
+    last_index = 0
 
-    for number in st:
-        if number.isdigit():
-            number_list.append(int(number))
-    return number_list
-    # return [number for number in st.split() if number.isdigit()]
+    for i in range(len(st)):
+        if st[i].isdigit() and first_index == 0:
+            first_index = i
+        if not st[i].isdigit() and first_index != 0:
+            last_index = i
+            sum_ += int(st[first_index:last_index])
+            first_index = 0
+            last_index = 0
+        if st[i].isdigit() and first_index != 0 and i == len(st)-1:
+            last_index = i+1
+            sum_ += int(st[first_index:last_index])
+            first_index = 0
+            last_index = 0
+
+    return sum_
 
 
-print(sum_of_numbers("ab125cd3"))
-print(sum_of_numbers("ab12"))
-print(sum_of_numbers("ab"))
+# print(sum_of_numbers("ab125cd3"))
+# print(sum_of_numbers("ab12"))
+# print(sum_of_numbers("ab"))
