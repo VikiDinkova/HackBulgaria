@@ -131,6 +131,7 @@ def sum_matrix(m):
 # print(sum_matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
 
 
+#bombing_matrix
 def index_in_matrix(row, col, m):
     if col >= len(m) or col < 0 or row >= len(m[0]) or row < 0:
         return False
@@ -168,6 +169,7 @@ def matrix_bombing_plan(m):
 # print(matrix_bombing_plan([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
 
 
+# transversal
 def is_transversal(trasversal, family):
     # count = 0
 

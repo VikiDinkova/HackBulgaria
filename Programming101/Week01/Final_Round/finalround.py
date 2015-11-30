@@ -100,8 +100,8 @@ def gas_stations(distance, tank_size, stations):
     gas_stops = []
     temp_tank_size = tank_size
     stations = [0] + stations + [distance]
-    for i in range(len(stations)-1):
-        gas_burned = stations[i+1] - stations[i]
+    for i in range(len(stations) - 1):
+        gas_burned = stations[i + 1] - stations[i]
         if temp_tank_size > gas_burned:
             temp_tank_size -= gas_burned
         else:
@@ -139,8 +139,8 @@ def sum_of_numbers(st):
             sum_ += int(st[first_index:last_index])
             first_index = 0
             last_index = 0
-        if st[i].isdigit() and first_index != 0 and i == len(st)-1:
-            last_index = i+1
+        if st[i].isdigit() and first_index != 0 and i == len(st) - 1:
+            last_index = i + 1
             sum_ += int(st[first_index:last_index])
             first_index = 0
             last_index = 0
@@ -151,3 +151,116 @@ def sum_of_numbers(st):
 # print(sum_of_numbers("ab125cd3"))
 # print(sum_of_numbers("ab12"))
 # print(sum_of_numbers("ab"))
+
+
+# 100 SMS
+def array_to_symbol(group_list):
+    buttons = [
+        ['a', 'b', 'c'],
+        ['d', 'e', 'f'],
+        ['g', 'h', 'i'],
+        ['j', 'k', 'l'],
+        ['m', 'n', 'o'],
+        ['p', 'q', 'r', 's'],
+        ['t', 'u', 'v'],
+        ['w', 'x', 'y', 'z']
+    ]
+
+    count = len(group_list)
+    button = buttons[group_list[0] - 2]
+    symbol_index = count % len(button) - 1
+
+    return button[symbol_index]
+
+
+def numbers_to_message(press_sequence):
+    string = ''
+    is_cap = False
+    groups = group(press_sequence)
+
+    for group_ in groups:
+        if group_[0] == -1:
+            continue
+        elif group_[0] == 1:
+            is_cap = True
+        elif group_[0] == 0:
+            string += ' '
+        else:
+            if is_cap:
+                string += array_to_symbol(group_).upper()
+                is_cap = False
+            else:
+                string += array_to_symbol(group_)
+
+    return string
+
+print(numbers_to_message([2, -1, 2, 2, -1, 2, 2, 2]))
+print(numbers_to_message([2, 2, 2, 2]))
+print(numbers_to_message(
+    [1, 4, 4, 4, 8, 8, 8, 6, 6, 6, 0, 3, 3, 0, 1, 7, 7, 7, 7, 7, 2, 6, 6, 3, 2]
+))
+
+
+def symbol_to_list(letter):
+    buttons = [
+        ['a', 'b', 'c'],
+        ['d', 'e', 'f'],
+        ['g', 'h', 'i'],
+        ['j', 'k', 'l'],
+        ['m', 'n', 'o'],
+        ['p', 'q', 'r', 's'],
+        ['t', 'u', 'v'],
+        ['w', 'x', 'y', 'z']
+    ]
+
+    for button in buttons:
+
+        if letter in button:
+            push_button = buttons.index(button) + 2
+            press = button.index(letter) + 1
+            return [push_button for i in range(press)]
+
+
+def are_symbols_from_same_button(a, b):
+    buttons = [
+        ['a', 'b', 'c'],
+        ['d', 'e', 'f'],
+        ['g', 'h', 'i'],
+        ['j', 'k', 'l'],
+        ['m', 'n', 'o'],
+        ['p', 'q', 'r', 's'],
+        ['t', 'u', 'v'],
+        ['w', 'x', 'y', 'z']
+    ]
+
+    for button in buttons:
+        if a in button and b in button:
+
+            return True
+
+    return False
+
+
+def message_to_numbers(message):
+    sequence = []
+    previous_symbol = ''
+
+    for symbol in message:
+        if symbol == ' ':
+            sequence.append(0)
+        else:
+            if are_symbols_from_same_button(previous_symbol.lower(), symbol.lower()):
+                sequence.append(-1)
+            if symbol == symbol.upper():
+                sequence.append(1)
+                sequence += symbol_to_list(symbol.lower())
+            else:
+                sequence += symbol_to_list(symbol)
+        previous_symbol = symbol
+
+    return sequence
+
+
+print(message_to_numbers("aAabbcda"))
+print(message_to_numbers("Ivo e panda"))
+print(message_to_numbers("aabbcc"))
