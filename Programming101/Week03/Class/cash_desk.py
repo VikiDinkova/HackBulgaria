@@ -10,12 +10,14 @@ class Bill:
 
     def __repr__(self):
         return 'A {0}$ bill'.format(self.amount)
+        # return self.__str__()
 
     def __int__(self):
         return self.amount
 
     def __eq__(self, other):
         return hash(self) == hash(other)
+        # return self.amount == other.amount
 
     def __hash__(self):
         return hash(str(self.amount))
