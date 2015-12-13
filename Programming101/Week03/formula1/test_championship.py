@@ -38,15 +38,16 @@ class TestDriver(unittest.TestCase):
 class TestRace(unittest.TestCase):
 
     def setUp(self):
-        car = 'Opel'
-        model = 'Astra'
-        max_speed = 180
-        self.test_car = Car(car, model, max_speed)
-        rado = Driver("Rado", car)
-        self.drivers = Race([rado], 0.7)
+        self.name = 'Ivo'
+        self.car = 'Opel'
+        self.model = 'Astra'
+        self.max_speed = 180
+        self.test_car = Car(self.car, self.model, self.max_speed)
+        self.test_driver = Driver(self.name, self.test_car)
+        self.test_race = Race([self.test_driver], 0.7)
 
     def test_init(self):
-        self.assertEqual(self.drivers, ["Rado"])
+        self.assertEquals(self.test_race.drivers, [self.test_driver])
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-Lclass BankAccount:
+class BankAccount:
     def __init__(self, name, balance, currency):
         self.name = name
         self.balance = balance
@@ -54,4 +54,4 @@ Lclass BankAccount:
             return True
 
     def get_history(self):
-        pass
+        return self.history
