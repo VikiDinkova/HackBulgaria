@@ -1,8 +1,30 @@
-from group import group
+def take_same(a):
+    arr = [a[0]]
+
+    for i in range(len(a) - 1):
+        if a[i] == a[i + 1]:
+            arr.append(a[i + 1])
+        else:
+            return arr
+
+    return arr
+
+
+def group(elements):
+    arr = []
+
+    while len(elements) > 0:
+        arr.append(take_same(elements))
+        elements = elements[len(take_same(elements)):]
+    return arr
 
 
 class Bill:
     def __init__(self, amount):
+        if amount != int(amount):
+            raise TypeError
+        if amount < 0:
+            raise ValueError
         self.amount = amount
 
     def __str__(self):
@@ -76,15 +98,18 @@ class CashDesk:
         return total_sum
 
     def inspect(self):
+        result = ''
         value_list = []
         for bill in self.money_notes:
             value_list.append(bill.amount)
         value_list = sorted(value_list)
         value_list = group(value_list)
-        print('We have a total of {}$ in the desk'.format(self.total()))
-        print('We have the following count of bills, sorted in ascending order:')
+        result += 'We have a total of {}$ in the desk\n'.format(self.total())
+        result += 'We have the following count of bills, sorted in ascending order:\n'
         for bill_patch in value_list:
-            print('{}$ bills - {} '.format(bill_patch[0], len(bill_patch)))
+            result += '{}$ bills - {}\n'.format(bill_patch[0], len(bill_patch))
+        return result[:len(result)-1]
+
 
 # values = [10, 20, 50, 100, 100, 100]
 # bills = [Bill(value) for value in values]

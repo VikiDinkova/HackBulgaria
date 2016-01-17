@@ -6,13 +6,16 @@ from firstday import char_histogram
 def is_number_balanced(n):
     n = str(n)
     first_part = sum([int(n[index]) for index in range(len(n) // 2)])
-    last_part = sum([int(n[index])
-                     for index in range((len(n) // 2) + 1, len(n))])
-
+    if len(n) % 2:
+        last_part = sum([int(n[index]) for index in range((len(n) // 2) + 1, len(n))])
+    else:
+        last_part = sum([int(n[index]) for index in range((len(n) // 2), len(n))])
     return first_part == last_part
 
-
-# print(is_number_balanced(28471))
+print(is_number_balanced(4518))
+print(is_number_balanced(28471))
+print(is_number_balanced(1111))
+print(is_number_balanced(1238033))
 
 
 def is_increasing(seq):
@@ -184,9 +187,9 @@ def is_transversal(trasversal, family):
         if len(it) == 0 or len(it) > 1:
             return False
 
-        return True
+    return True
 
 
-print(is_transversal((4, 5, 6), ((5, 7, 9), (1, 4, 3), (2, 6))))
-print(is_transversal((1, 2), ((1, 5), (2, 3), (4, 7))))
-print(is_transversal((2, 3, 4), ((1, 7), (2, 3, 5), (4, 8))))
+# print(is_transversal((4, 5, 6), ((5, 7, 9), (1, 4, 3), (2, 6))))
+# print(is_transversal((1, 2), ((1, 5), (2, 3), (4, 7))))
+# print(is_transversal((2, 3, 4), ((1, 7), (2, 3, 5), (4, 8))))
