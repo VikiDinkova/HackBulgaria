@@ -1,0 +1,8 @@
+CREATE TABLE books (
+bookID INTEGER PRIMARY KEY AutoIncrement not null,
+bookTittle varchar(255) not null,
+bookPrice money not null,
+FOREIGN KEY(genreID) REFERENCES  genre(genreID),
+yearOfPublish date null,
+quantity integer not null 
+)

@@ -1,0 +1,18 @@
+INSERT INTO books(
+BookID,
+BookAuthor,
+BookTitle,
+BookPrice,
+Genre,
+Publisher,
+YearofPublish,
+Quantity
+)
+VALUES
+	(2,,"The best of me", 101, "Drama","B",2000,4),
+	(3,"Nakov","Programming JAVA", 102, "IT","C", 1980, 0),
+	(4,"Magda","UP",500,"IT","D",1999,6),
+	(5,"Terry","D Pras",501,"Fiction","E", 1948,1),
+	(6,"Terry", "Witches",502, "Fiction","E",1995,5),
+	(7,"Nick Sp", "The notebook","Drama",5,"X",2001,215);
+	
