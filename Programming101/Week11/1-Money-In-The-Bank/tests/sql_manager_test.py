@@ -1,9 +1,11 @@
-import sql_manager
 import sys
 import unittest
 import os
 
 sys.path.append("..")
+
+import sql_manager
+
 
 STRONG_PASSWORD1 = "123Asdf$$123Asdf"
 STRONG_PASSWORD2 = "321$$321Asdf"
@@ -12,7 +14,7 @@ STRONG_PASSWORD2 = "321$$321Asdf"
 class SqlManagerTests(unittest.TestCase):
 
     def setUp(self):
-        sql_manager.create_datebase()
+        sql_manager.create_database()
         sql_manager.register('Tester', STRONG_PASSWORD1)
 
     def tearDown(self):
@@ -72,3 +74,4 @@ class SqlManagerTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+

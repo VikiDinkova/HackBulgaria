@@ -1,5 +1,6 @@
 import sys
 
+
 def main():
     for filename in sys.argv[1:]:
         data = open(filename, 'r')

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Register</title>
+</head>
+<body>
+	<form action="" method="POST">
+		{% csrf_token %}
+		<label>
+			Email:
+			<input type="text" name="email_register">
+		</label>
+
+		<label>
+			Password:
+			<input type="password" name="password_register">
+		</label>
+
+		<input type="submit" value="Register">
+
+
+
+	</form>
+	<div class="succsess">
+		{{ succsess }}		
+	</div>
+	<div class="error">
+		{{ error }}
+	</div>
+</body>
+</html>

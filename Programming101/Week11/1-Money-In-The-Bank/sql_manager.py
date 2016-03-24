@@ -2,6 +2,8 @@ import sqlite3
 from client import Client
 from validation import get_validator, StrongPasswordException
 from helpers import hash_password
+import messages
+
 from settings import DB_NAME, SQL_STRUCTURE_FILE
 import datetime
 
@@ -11,10 +13,29 @@ conn.row_factory = sqlite3.Row
 cursor = conn.cursor()
 
 
-def create_datebase():
+class UserBlockedException(Exception):
+    pass
+
+
+def create_database():
     with open(SQL_STRUCTURE_FILE, 'r') as f:
-        create_query = f.read
-    cursor.execute(create_query)
+        create_query = f.read()
+
+    cursor.executescript(create_query)
+
+
+# TODO: Better raise exception: UserNotFound
+def get_id_by_username(username):
+    query = """SELECT id FROM clients
+               WHERE username = ?
+               LIMIT 1"""
+    cursor.execute(query, (username, ))
+    result = cursor.fetchone()
+
+    if result is None:
+        return None
+
+    return result['id']
 
 
 def change_message(new_message, logged_user):
@@ -49,7 +70,36 @@ def register(username, password):
     conn.commit()
 
 
+def create_login_attempt(username, status):
+    now = datetime.datetime.now()
+    user_id = get_id_by_username(username)
+    insert_sql = """INSERT INTO login_attempts(client_id,
+                                               attempt_status,
+                                               timestamp)
+                    VALUES(?, ?, ?)"""
+
+    cursor.execute(insert_sql, (user_id, status, now))
+    conn.commit()
+
+count_failed = 0
+
+
 def login(username, password):
+    user = _login(username, password)
+
+    if count_failed == 6:
+        start_blocking = datetime.datetime.now()
+
+    if user:
+        create_login_attempt(username, status="SUCCESS")
+        return user
+    else:
+        create_login_attempt(username, status="FAILED")
+        global count_failed += 1
+        return False
+
+
+def _login(username, password):
     salt_query = """SELECT salt
                     FROM clients
                     WHERE username = ?
@@ -70,41 +120,7 @@ def login(username, password):
     cursor.execute(select_query, (username, pwd_hash))
     user = cursor.fetchone()
 
-    if user:
+    if(user):
         return Client(user[0], user[1], user[2], user[3])
     else:
-        return False
-
-
-def get_id_by_username(username):
-    query = """SELECT id FROM clients
-               WHERE username = ?
-               LIMIT 1"""
-    cursor.execute(query, (username, ))
-    result = cursor.fetchone()
-
-    if result is None:
-        return None
-    return result['id']
-
-
-def create_login_attempt(username, status):
-    user_id = get_id_by_username(username)
-    insert_sql = """INSERT INTO loggin_attempts(client_id,
-                                                attemps_status,
-                                                timestramp)
-                    VALUES(?, ?, ?)"""
-    cursor.execute(insert_sql, )
-
-
-
-def _login(username, password):
-    if user:
-        # Uspe6en opit
-        create_login_attempt(username, status="SUCCESS")
-        print user
-    else:
-        create_login_attempt(username, status="FAILED")
-        # neuspe6en opit
-        # tr li da blokirame tozi username
         return False

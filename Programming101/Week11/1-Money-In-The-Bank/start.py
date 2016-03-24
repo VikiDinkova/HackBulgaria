@@ -1,7 +1,5 @@
 import sql_manager
 from validation import StrongPasswordException
-from helpers import *
-import getpass
 
 
 def main_menu():
@@ -12,7 +10,7 @@ def main_menu():
 
         if command == 'register':
             username = input("Enter your username: ")
-            password = getpass.getpass("Enter your password: ")
+            password = input("Enter your password: ")
 
             try:
                 sql_manager.register(username, password)
@@ -22,7 +20,7 @@ def main_menu():
 
         elif command == 'login':
             username = input("Enter your username: ")
-            password = getpass.getpass("Enter your password: ")
+            password = input("Enter your password: ")
 
             logged_user = sql_manager.login(username, password)
 
@@ -71,7 +69,7 @@ def logged_menu(logged_user):
 
 
 def main():
-    sql_manager.create_datebase()
+    sql_manager.create_database()
     main_menu()
 
 if __name__ == '__main__':
